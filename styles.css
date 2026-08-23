@@ -1,0 +1,145 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: #f4f4f4;
+    color: #222222;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.6;
+}
+
+header {
+    background-color: #243447;
+    color: #ffffff;
+    text-align: center;
+    padding: 30px 20px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 50px;
+}
+
+header p {
+    margin: 10px 0 0;
+    font-size: 20px;
+}
+
+nav {
+    background-color: #17202a;
+    text-align: center;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+nav li {
+    display: inline-block;
+}
+
+nav a {
+    display: inline-block;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 12px 20px;
+    transition: background-color 0.3s;
+}
+
+nav a:hover {
+    background-color: #34495e;
+}
+
+#productos {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+}
+
+#productos > ul {
+    margin: 0;
+    padding: 0;
+}
+
+#productos > ul > li {
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #cccccc;
+    list-style: none;
+    transition:border-color 0.3s;
+}
+
+#productos > ul > li:nth-child(even) {
+    background-color: #eef2f5;
+}
+
+#productos > ul > li:hover {
+    border-color:#34495e;
+}
+
+#productos > ul > li:last-child {
+    margin-bottom: 0;
+}
+
+#productos h2 {
+    color: #243447;
+    font-size: 28px;
+}
+
+#productos h3 {
+    color: #34495e;
+    font-size: 20px;
+}
+
+.portada-producto {
+    width: 200px;
+    max-width: 100%;
+    height: 280px;
+    object-fit: cover;
+}
+
+#contacto {
+    background-color: #243447;
+    color: #ffffff;
+    text-align: center;
+    padding: 20px;
+}
+
+#contacto a {
+    color: #ffffff;
+}
+
+@media (max-width: 600px) {
+    header {
+        padding: 20px 15px;
+    }
+
+    header h1 {
+        font-size: 28px;
+    }
+
+    nav li {
+        display: block;
+    }
+
+    nav a {
+        display: block;
+    }
+
+    #productos {
+        margin: 15px;
+        padding: 15px;
+    }
+
+    #productos > li> li {
+        padding: 15px;
+    }
+}
