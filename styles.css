@@ -30,30 +30,25 @@ header p {
     font-size: 20px;
 }
 
-nav {
+/* Navegacion con Bootstrap */
+.navbar {
     background-color: #17202a;
-    text-align: center;
 }
 
-/* Navegacion con Flexbox */
-nav ul {
-    display: flex;
-    justify-content: center;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-nav a {
-    display: inline-block;
+.navbar .nav-link {
     color: #ffffff;
-    text-decoration: none;
     padding: 12px 20px;
     transition: background-color 0.3s;
 }
 
-nav a:hover {
+.navbar .nav-link:hover {
     background-color: #34495e;
+}
+
+.navbar .nav-link:focus-visible {
+    background-color: #34495e;
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
 }
 
 /* Seccion de futuros lanzamientos */
@@ -79,31 +74,30 @@ nav a:hover {
     border: 1px solid #cccccc;
 }
 
-/* Catalogo de productos con CSS Grid */
-#productos > ul {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-#productos > ul > li {
-    padding: 20px;
+/* Tarjetas de productos con Bootstrap */
+#productos .card {
     background-color: #f9f9f9;
-    border: 1px solid #cccccc;
+    border-color: #cccccc;
     text-align: center;
-    transition:border-color 0.3s;
+    transition: border-color 0.3s;
 }
 
-#productos > ul > li:nth-child(even) {
-    background-color: #eef2f5;
+#productos .card:hover {
+    border-color: #34495e;
 }
 
-#productos > ul > li:hover {
-    border-color:#34495e;
+#productos .card-title {
+    color: #34495e;
+    font-size: 20px;
+}
+
+.portada-producto {
+    display: block;
+    width: 200px;
+    max-width: 100%;
+    height: 280px;
+    margin: 20px auto 0;
+    object-fit: cover;
 }
 
 #productos h2 {
@@ -118,12 +112,7 @@ nav a:hover {
 }
 
 .juego-destacado {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 25px;
-    align-items: center;
-
-    padding: 20px;
+    overflow: hidden;
     background-color: #f9f9f9;
     border: 1px solid #cccccc;
 }
@@ -131,11 +120,13 @@ nav a:hover {
 .imagen-destacada {
     display: block;
     width: 100%;
-    height: auto;
+    height: 500px;
+    object-fit: cover;
 }
 
 .info-destacada {
-    padding: 10px;
+    padding: 20px;
+    text-align: center;
 }
 
 .info-destacada h3 {
@@ -197,16 +188,6 @@ nav a:hover {
     .juego-destacado {
         grid-template-columns: 3fr 2fr;
     }
-
-    #productos > ul {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    #productos > ul > li:last-child:nth-child(odd) {
-        grid-column: 1 / -1;
-        justify-self: center;
-        width: calc(50% - 10px);
-    }
 }
 
 /* Diseño responsivo para movil */
@@ -219,19 +200,6 @@ nav a:hover {
         font-size: 28px;
     }
 
-    nav ul {
-        flex-wrap: wrap;
-    }
-
-    nav li {
-        flex: 1 1 50%;
-    }
-
-    nav a {
-        display: block;
-        padding: 10px;
-    }
-
     #lanzamiento {
         margin: 15px;
         padding: 15px;
@@ -240,10 +208,6 @@ nav a:hover {
     #productos {
         margin: 15px;
         padding: 15px;
-    }
-
-    #productos > ul {
-        grid-template-columns: 1fr;
     }
 
     #productos > ul > li {
@@ -261,9 +225,7 @@ nav a:hover {
         padding: 15px;
     }
 
-    #productos > ul > li:last-child:nth-child(odd) {
-        grid-column: auto;
-        justify-self: stretch;
-        width: auto;
+    .imagen-destacada {
+        height: 260px;
     }
 }
