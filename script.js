@@ -20,7 +20,7 @@ tituloNovedades.textContent = "Novedades";
 
 const descripcionNovedades = document.createElement("p");
 descripcionNovedades.textContent =
-    "Próximamente encontrarás nuevos videojuegos agregados dinámicamente al catálogo.";
+    "Descubre nuevos videojuegos añadidos recientemente a nuestro catálogo.";
 descripcionNovedades.classList.add("mb-3");
 
 const botonNovedades = document.createElement("button");
