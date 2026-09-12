@@ -98,6 +98,8 @@ header p {
     height: 280px;
     margin: 20px auto 0;
     object-fit: cover;
+    object-position: center top;
+    transition: transform 0.3s;
 }
 
 #productos h2 {
@@ -144,13 +146,25 @@ header p {
     font-weight: bold;
 }
 
-.portada-producto {
-    display: block;
-    width: 200px;
-    max-width: 100%;
-    height: 280px;
-    margin: 0 auto;
-    object-fit: cover;
+/* Seccion de novedades generada dinámicamente */
+#novedades {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 25px;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    text-align: center;
+}
+
+#novedades h2 {
+    margin-top: 0;
+    color: #243447;
+    font-size: 28px;
+    text-transform: uppercase;
+}
+
+#novedades p {
+    margin-bottom: 0;
 }
 
 #contacto {
@@ -184,10 +198,6 @@ header p {
     #lanzamiento {
         margin: 20px;
     }
-
-    .juego-destacado {
-        grid-template-columns: 3fr 2fr;
-    }
 }
 
 /* Diseño responsivo para movil */
@@ -210,19 +220,14 @@ header p {
         padding: 15px;
     }
 
-    #productos > ul > li {
+    #novedades {
+        margin: 15px;
         padding: 15px;
     }
 
     #contacto {
         flex-direction: column;
         gap: 8px;
-    }
-
-    .juego-destacado {
-        grid-template-columns: 1fr;
-        gap: 15px;
-        padding: 15px;
     }
 
     .imagen-destacada {
