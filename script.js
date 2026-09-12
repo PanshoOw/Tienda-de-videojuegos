@@ -58,7 +58,7 @@ formularioNovedades.appendChild(mensajeFormulario);
 
 // Contenedos para los productos cargados mediante Fetch API
 const tituloProductoDinamicos = document.createElement("h3");
-tituloProductoDinamicos.textContent = "Productos agregados dinámicamente";
+tituloProductoDinamicos.textContent = "Nuevos productos";
 tituloProductoDinamicos.classList.add("mt-4");
 
 const contenedorProductosDinamicos = document.createElement("div");
