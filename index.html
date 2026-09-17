@@ -14,14 +14,14 @@
     >
 
     <!-- Enlace al archivo de estilo -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
 
     <!-- Cabecera principal del sitio -->
     <header id="inicio">
         <h1>El Bazar de PanshoOw</h1>
-        <p>Tu tienda especializada en videojuegos para todas las plataformas.</p>
+        <p>Tu tienda especializada en videojuegos, novedades y clásicos para todas las plataformas.</p>
     </header>
 
     <!-- Barra de navegación con Bootstrap -->
@@ -49,9 +49,44 @@
                         <a class="nav-link" href="#lanzamiento">Lanzamiento</a>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="#productos">Productos</a>
+                    <li class="nav-item dropdown">
+                        <a
+                            class="nav-link dropdown-toggle"
+                            id="menuProductos"
+                            type="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                        >
+                            Productos
+                        </a>
+
+                        <ul class="dropdown-menu" aria-labelledby="menuProductos">
+                            <li>
+                                <a class="dropdown-item" href="#productos">
+                                    Todos los productos
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="#productos">
+                                    PC
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="#productos">
+                                    Nintendo
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="#productos">
+                                    Multiplataforma
+                                </a>
+                            </li>
+                        </ul>
                     </li>
+
 
                     <li class="nav-item">
                         <a class="nav-link" href="#contacto">Contacto</a>
@@ -109,7 +144,7 @@
 
                         <div class="carousel-item active">
                             <img
-                                src="imagenes/portada-gtavi.jpg"
+                                src="assets/img/portada-gtavi.jpg"
                                 class="d-block w-100 imagen-destacada"
                                 alt="Primer arte promocional de Grand Theft Auto VI"
                             >
@@ -117,7 +152,7 @@
 
                         <div class="carousel-item">
                             <img
-                                src="imagenes/gtavi-2.jpg"
+                                src="assets/img/gtavi-2.jpg"
                                 class="d-block w-100 imagen-destacada"
                                 alt="Segundo arte promocional de Grand Theft Auto VI"
                             >
@@ -125,7 +160,7 @@
 
                         <div class="carousel-item">
                             <img
-                                src="imagenes/gtavi-3.jpg"
+                                src="assets/img/gtavi-3.jpg"
                                 class="d-block w-100 imagen-destacada"
                                 alt="Tercer arte promocional de Grand Theft Auto VI"
                             >
@@ -179,69 +214,61 @@
         </section>
 
         <section id="productos">
-            <h2>PRODUCTOS DESTACADOS</h2>
+            <h2>CATÁLOGO DE PRODUCTOS</h2>
 
-            <!-- Productos organizados con Bootstrap Grid y Cards -->
             <div class="container">
-                <div class="row g-4">
 
-                    <!-- Productos en stock -->
-                    <!-- MINECRAFT -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <article class="card h-100">
-                            <img
-                                src="imagenes/portada-minecraft.jpg"
-                                class="card-img-top portada-producto"
-                                alt="Portada de Minecraft Java Edition"
-                            >
+                <form id="formularioBusqueda" class="mb-4">
+                    <div class="input-group">
+                        <input
+                            type="search"
+                            id="campoBusqueda"
+                            class="form-control"
+                            placeholder="Buscar videojuegos..."
+                            aria-label="Buscar videojuegos"
+                        >
 
-                            <div class="card-body">
-                                <h3 class="card-title">Minecraft Java Edition</h3>
-                                <p class="card-text">
-                                    El sandbox más famoso y comprado del mundo. Construcción, exploración y supervivencia.
-                                </p>
-                            </div>
-                        </article>
+                        <button class="btn btn-primary" type="submit">
+                            Buscar
+                        </button>
                     </div>
+                </form>
 
-                    <!-- FALL GUYS -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <article class="card h-100">
-                            <img
-                                src="imagenes/portada-fall-guys.jpg"
-                                class="card-img-top portada-producto"
-                                alt="Portada de Fall Guys Ultimate Knockout"
+                <div id="contenedorProductos" class="row g-4">
+                    <!-- Los productos se cargarán dinámicamente desde productos.json -->
+                </div>
+            </div>
+        </section>
+
+        <section id="carrito" class="py-4">
+            <div class="container">
+                <h2>CARRITO DE COMPRAS</h2>
+
+                <div class="card">
+                    <div class="card-body">
+
+                        <div id="listaCarrito">
+                            <p
+                                id="mensajeCarritoVacio"
+                                class="text-body-secondary mb-0"
                             >
+                                Tu carrito está vacío.
+                            </p>
+                        </div>
 
-                            <div class="card-body">
-                                <h3 class="card-title">Fall Guys: Ultimate Knockout</h3>
-
-                                <p class="card-text">
-                                    Multijugador masivo party royale y plataformas.
-                                </p>
+                        <div class="resumen-carrito">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Productos:</span>
+                                <span id="cantidadCarrito">0</span>
                             </div>
-                        </article>
-                    </div>
 
-                    <!-- SUPER SMASH BROS BRAWL -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <article class="card h-100">
-                            <img
-                                src="imagenes/portada-super-smash-bros-brawl.jpg"
-                                class="card-img-top portada-producto"
-                                alt="Portada de Super Smash Bros Brawl"
-                            >
-
-                            <div class="card-body">
-                                <h3 class="card-title">Super Smash Bros Brawl</h3>
-
-                                <p class="card-text">
-                                    Famoso juego de lucha y acción cruzado para la consola Wii.
-                                </p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fw-bold">Total:</span>
+                                <span id="totalCarrito" class="fw-bold fs-5">$0</span>
                             </div>
-                        </article>
+                        </div>
+                        
                     </div>
-
                 </div>
             </div>
         </section>
@@ -277,7 +304,7 @@
     </script>
 
     <!-- JavaScript personalizado -->
-     <script src="script.js"></script>
+    <script src="assets/js/script.js"></script>
 
 </body>
 </html>

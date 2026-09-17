@@ -74,6 +74,14 @@ header p {
     border: 1px solid #cccccc;
 }
 
+/* Descripcion de los productos del catalogo */
+.descripcion-producto {
+    color: #555555;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
 /* Tarjetas de productos con Bootstrap */
 #productos .card {
     background-color: #f9f9f9;
@@ -106,11 +114,6 @@ header p {
     color: #243447;
     font-size: 28px;
     text-align: center;
-}
-
-#productos h3 {
-    color: #34495e;
-    font-size: 20px;
 }
 
 .juego-destacado {
@@ -146,25 +149,61 @@ header p {
     font-weight: bold;
 }
 
-/* Seccion de novedades generada dinámicamente */
-#novedades {
-    max-width: 1000px;
-    margin: 30px auto;
-    padding: 25px;
-    background-color: #ffffff;
-    border: 1px solid #cccccc;
-    text-align: center;
+/* Contenedor de la lista del carrito */
+#listaCarrito {
+    margin-bottom: 20px;
 }
 
-#novedades h2 {
-    margin-top: 0;
+/* Encabezado del carrito */
+.carrito-encabezado {
+    display: grid;
+    grid-template-columns: 1fr 100px 140px;
+    gap: 15px;
+    padding: 0 0 10px 0;
+    margin-bottom: 8px;
+    border-bottom: 2px solid #cccccc;
+    font-weight: bold;
     color: #243447;
-    font-size: 28px;
-    text-transform: uppercase;
 }
 
-#novedades p {
-    margin-bottom: 0;
+/* Cada fila de producto del carrito */
+.carrito-item {
+    display: grid;
+    grid-template-columns: 1fr 100px 140px;
+    gap: 15px;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #dddddd;
+}
+
+/* Nombre del producto */
+.carrito-nombre {
+    color: #222222;
+}
+
+/* Cantidad */
+.carrito-cantidad {
+    text-align: center;
+    font-weight: 600;
+}
+
+/* Subtotal */
+.carrito-subtotal {
+    text-align: right;
+    font-weight: bold;
+}
+
+/* Resumen final del carrito */
+.resumen-carrito {
+    max-width: 320px;
+    margin-left: auto;
+    margin-top: 20px;
+}
+
+/* Limita el ancho del carrito para mantener consistencia visual */
+#carrito {
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 #contacto {
@@ -220,11 +259,6 @@ header p {
         padding: 15px;
     }
 
-    #novedades {
-        margin: 15px;
-        padding: 15px;
-    }
-
     #contacto {
         flex-direction: column;
         gap: 8px;
@@ -232,5 +266,20 @@ header p {
 
     .imagen-destacada {
         height: 260px;
+    }
+
+    .carrito-encabezado,
+    .carrito-item {
+        grid-template-columns: minmax(0, 1fr) 70px 100px;
+        gap: 8px;
+        font-size: 0.9rem;
+    }
+
+    .carrito-nombre {
+        overflow-wrap: anywhere;
+    }
+
+    .resumen-carrito {
+        max-width: 100%;
     }
 }
