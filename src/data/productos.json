@@ -1,0 +1,79 @@
+[
+  {
+    "id": 1,
+    "nombre": "Minecraft Java Edition",
+    "plataforma": "PC",
+    "genero": "Sandbox",
+    "descripcion": "El sandbox más famoso y comprado del mundo. Construcción, exploración y supervivencia.",
+    "precioNormal": 29990,
+    "precioOferta": 25990,
+    "categoria": "PC",
+    "imagen": "img/portada-minecraft.jpg"
+  },
+  {
+    "id": 2,
+    "nombre": "Fall Guys: Ultimate Knockout",
+    "plataforma": "PC / PlayStation / Xbox / Nintendo Switch",
+    "genero": "Party royale",
+    "descripcion": "Multijugador masivo party royale y plataformas.",
+    "precioNormal": 19990,
+    "precioOferta": 14990,
+    "categoria": "Multiplataforma",
+    "imagen": "img/portada-fall-guys.jpg"
+  },
+  {
+    "id": 3,
+    "nombre": "Super Smash Bros Brawl",
+    "plataforma": "Nintendo Wii",
+    "genero": "Lucha y acción",
+    "descripcion": "Famoso juego de lucha y acción cruzado para la consola Wii.",
+    "precioNormal": 24990,
+    "precioOferta": 19990,
+    "categoria": "Nintendo",
+    "imagen": "img/portada-super-smash-bros-brawl.jpg"
+  },
+  {
+    "id": 4,
+    "nombre": "Elden Ring",
+    "plataforma": "PC / PlayStation / Xbox",
+    "genero": "RPG de acción",
+    "descripcion": "Explora un vasto mundo de fantasía lleno de desafíos, exploración y combates exigentes.",
+    "precioNormal": 54990,
+    "precioOferta": 44990,
+    "categoria": "Multiplataforma",
+    "imagen": "img/portada-elden-ring.jpg"
+  },
+  {
+    "id": 5,
+    "nombre": "The Legend of Zelda: Tears of the Kingdom",
+    "plataforma": "Nintendo Switch",
+    "genero": "Acción y aventura",
+    "descripcion": "Explora Hyrule y sus cielos en una aventura centrada en la exploración y la creatividad.",
+    "precioNormal": 59990,
+    "precioOferta": 49990,
+    "categoria": "Nintendo",
+    "imagen": "img/portada-zelda-totk.jpg"
+  },
+  {
+    "id": 6,
+    "nombre": "Resident Evil 4 Remake",
+    "plataforma": "PC / PlayStation / Xbox",
+    "genero": "Survival horror",
+    "descripcion": "Una reinterpretación moderna del clásico de acción y terror protagonizado por Leon S. Kennedy.",
+    "precioNormal": 49990,
+    "precioOferta": 39990,
+    "categoria": "Multiplataforma",
+    "imagen": "img/portada-re4-remake.jpg"
+  },
+  {
+    "id": 7,
+    "nombre": "Resident Evil Requiem",
+    "plataforma": "PC / PlayStation / Xbox / Nintendo Switch 2",
+    "genero": "Survival horror",
+    "descripcion": "Combina el terror psicológico, la vulnerabilidad de una investigación de asesinatos y la acción frenética característica de la franquicia",
+    "precioNormal": 49990,
+    "precioOferta": 41990,
+    "categoria": "Multiplataforma",
+    "imagen": "img/portada-re-requiem.jpg"
+  }
+]
