@@ -1,13 +1,14 @@
-function ProductCard({ producto, onAgregar }) {
-    const formatearPrecio = (precio) =>
-        new Intl.NumberFormat('es-CL', {
-        style: 'currency',
-        currency: 'CLP',
-        maximumFractionDigits: 0,
-        }).format(precio)
+import formatearPrecio from '../utils/formatearPrecio'
 
+function ProductCard({
+    producto,
+    onAgregar,
+    enCarrito,
+}) {
     return (
         <article className="producto-card">
+
+        {/* Imagen y categoría del videojuego */}
         <div className="producto-imagen-contenedor">
             <img
             className="producto-imagen"
@@ -20,6 +21,7 @@ function ProductCard({ producto, onAgregar }) {
             </span>
         </div>
 
+        {/* Información principal del producto */}
         <div className="producto-contenido">
             <p className="producto-plataforma">
             {producto.plataforma}
@@ -31,6 +33,7 @@ function ProductCard({ producto, onAgregar }) {
             {producto.descripcion}
             </p>
 
+            {/* Precios normal y oferta */}
             <div className="producto-precios">
             <span className="precio-normal">
                 {formatearPrecio(producto.precioNormal)}
@@ -41,12 +44,17 @@ function ProductCard({ producto, onAgregar }) {
             </span>
             </div>
 
+            {/* Acción para agregar el producto al carrito */}
             <button
                 type="button"
-                className="producto-boton"
+                className={`producto-boton ${
+                    enCarrito ? 'producto-boton-activo' : ''
+                }`}
                 onClick={() => onAgregar(producto)}
             >
-                Agregar al carrito
+                {enCarrito
+                    ? '✓ En el carrito'
+                    : 'Agregar al carrito'}
             </button>
         </div>
         </article>

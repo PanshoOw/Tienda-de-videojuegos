@@ -376,6 +376,12 @@
         transform 0.2s;
 }
 
+.producto-boton-activo {
+    background-color: #2b2f3a;
+    color: #aeb3bf;
+    border-color: #434957;
+}
+
 .producto-boton:hover {
     background-color: #7566f5;
 }
@@ -390,6 +396,21 @@
     text-align: center;
     border: 1px dashed #3a3e48;
     border-radius: 12px;
+}
+
+/* Estados de carga del catálogo */
+.productos-estado {
+    padding: 40px;
+    color: #aeb3bf;
+    text-align: center;
+    background-color: #171a21;
+    border: 1px dashed #3a3e48;
+    border-radius: 12px;
+}
+
+.productos-error {
+    color: #ff9b9b;
+    border-color: #704040;
 }
 
 /* Carrito */

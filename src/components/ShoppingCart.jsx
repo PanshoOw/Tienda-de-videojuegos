@@ -1,22 +1,20 @@
+import formatearPrecio from '../utils/formatearPrecio'
+import CartItem from './CartItem'
+
 function ShoppingCart({
     carrito,
     onAumentar,
     onDisminuir,
     onEliminar,
     onVaciar,
-}) {
-    const formatearPrecio = (precio) =>
-        new Intl.NumberFormat('es-CL', {
-        style: 'currency',
-        currency: 'CLP',
-        maximumFractionDigits: 0,
-        }).format(precio)
-
+    }) {
+    // Calcula la cantidad total de productos considerando sus unidades.
     const totalProductos = carrito.reduce(
         (total, producto) => total + producto.cantidad,
         0
     )
 
+    // Calcula el precio total de todos los productos del carrito.
     const totalPrecio = carrito.reduce(
         (total, producto) =>
         total + producto.precioOferta * producto.cantidad,
@@ -25,6 +23,8 @@ function ShoppingCart({
 
     return (
         <section className="carrito">
+
+        {/* Encabezado y resumen general del carrito */}
         <div className="carrito-encabezado">
             <div>
             <span className="seccion-etiqueta">
@@ -37,9 +37,12 @@ function ShoppingCart({
             <div className="carrito-encabezado-acciones">
             <span className="carrito-contador">
                 {totalProductos}{' '}
-                {totalProductos === 1 ? 'producto' : 'productos'}
+                {totalProductos === 1
+                ? 'producto'
+                : 'productos'}
             </span>
 
+            {/* El botón solo aparece cuando existen productos */}
             {carrito.length > 0 && (
                 <button
                 type="button"
@@ -52,67 +55,30 @@ function ShoppingCart({
             </div>
         </div>
 
+        {/* Renderizado condicional según el contenido del carrito */}
         {carrito.length === 0 ? (
             <p className="carrito-vacio">
             Tu carrito está vacío.
             </p>
         ) : (
             <>
+            {/* Lista de productos agregados */}
             <div className="carrito-lista">
                 {carrito.map((producto) => (
-                <article
-                    className="carrito-producto"
-                    key={producto.id}
-                >
-                    <div className="carrito-producto-info">
-                    <h3>{producto.nombre}</h3>
-
-                    <p>
-                        {formatearPrecio(producto.precioOferta)} c/u
-                    </p>
-                    </div>
-
-                    <div className="carrito-acciones">
-                    <div className="cantidad-controles">
-                        <button
-                        type="button"
-                        onClick={() => onDisminuir(producto.id)}
-                        aria-label={`Disminuir cantidad de ${producto.nombre}`}
-                        >
-                        −
-                        </button>
-
-                        <span>{producto.cantidad}</span>
-
-                        <button
-                        type="button"
-                        onClick={() => onAumentar(producto.id)}
-                        aria-label={`Aumentar cantidad de ${producto.nombre}`}
-                        >
-                        +
-                        </button>
-                    </div>
-
-                    <strong className="carrito-subtotal">
-                        {formatearPrecio(
-                        producto.precioOferta * producto.cantidad
-                        )}
-                    </strong>
-
-                    <button
-                        type="button"
-                        className="carrito-eliminar"
-                        onClick={() => onEliminar(producto.id)}
-                    >
-                        Eliminar
-                    </button>
-                    </div>
-                </article>
-            ))}
+                    <CartItem
+                        key={producto.id}
+                        producto={producto}
+                        onAumentar={onAumentar}
+                        onDisminuir={onDisminuir}
+                        onEliminar={onEliminar}
+                    />
+                ))}
             </div>
 
+            {/* Total final de la compra */}
             <div className="carrito-total">
                 <span>Total</span>
+
                 <strong>
                 {formatearPrecio(totalPrecio)}
                 </strong>

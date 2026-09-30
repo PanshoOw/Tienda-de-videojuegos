@@ -1,6 +1,10 @@
 import ProductCard from './ProductCard'
 
-function ProductList({ productos, onAgregar }) {
+function ProductList({
+    productos,
+    carrito,
+    onAgregar,
+}) {
     if (productos.length === 0) {
         return (
         <p className="productos-vacio">
@@ -13,9 +17,12 @@ function ProductList({ productos, onAgregar }) {
         <section className="productos-grid">
         {productos.map((producto) => (
             <ProductCard
-            key={producto.id}
-            producto={producto}
-            onAgregar={onAgregar}
+                key={producto.id}
+                producto={producto}
+                onAgregar={onAgregar}
+                enCarrito={carrito.some(
+                    (item) => item.id === producto.id
+                )}
             />
         ))}
         </section>

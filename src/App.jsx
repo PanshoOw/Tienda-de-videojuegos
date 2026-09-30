@@ -3,15 +3,14 @@ import Header from './components/Header'
 import Navbar from './components/Navbar'
 import ProductList from './components/ProductList'
 import ShoppingCart from './components/ShoppingCart'
-import productos from './data/productos.json'
 import SearchBar from './components/SearchBar'
 import Toast from './components/Toast'
 import Footer from './components/Footer'
 import GameCarousel from './components/GameCarousel'
+import useCarrito from './hooks/useCarrito'
 import './App.css'
 
-const CLAVE_CARRITO = 'bazarPanshoOw_carrito'
-
+// Imágenes utilizadas por el carrusel de videojuego destacado.
 const IMAGENES_GTA_VI = [
   {
     id: 1,
@@ -31,6 +30,10 @@ const IMAGENES_GTA_VI = [
 ]
 
 function App() {
+  // --------------------------------------------------
+  // Configuración general
+  // --------------------------------------------------
+
   const categorias = [
     'Todos',
     'PC',
@@ -38,32 +41,79 @@ function App() {
     'Multiplataforma',
   ]
 
+  // --------------------------------------------------
+  // Estados del catálogo
+  // --------------------------------------------------
+
+  const [productos, setProductos] = useState([])
+  const [cargandoProductos, setCargandoProductos] = useState(true)
+  const [errorProductos, setErrorProductos] = useState('')
+
+  // --------------------------------------------------
+  // Estados de filtros e interfaz
+  // --------------------------------------------------
+
   const [categoriaActiva, setCategoriaActiva] = useState('Todos')
-
   const [busqueda, setBusqueda] = useState('')
-
   const [mensajeToast, setMensajeToast] = useState('')
 
-  const [carrito, setCarrito] = useState(() => {
-    const carritoGuardado = localStorage.getItem(CLAVE_CARRITO)
+  // --------------------------------------------------
+  // Gestión del carrito mediante custom Hook
+  // --------------------------------------------------
 
-    if (!carritoGuardado) {
-      return []
-    }
+  const {
+    carrito,
+    agregarProducto,
+    aumentarCantidad,
+    disminuirCantidad,
+    eliminarProducto,
+    vaciarCarrito,
+  } = useCarrito()
 
-    try {
-      return JSON.parse(carritoGuardado)
-    } catch {
-      return []
-    }
-  })
+  // --------------------------------------------------
+  // Carga dinámica del catálogo
+  // --------------------------------------------------
 
   useEffect(() => {
-    localStorage.setItem(
-      CLAVE_CARRITO,
-      JSON.stringify(carrito)
-    )
-  }, [carrito])
+    const cargarProductos = async () => {
+      try {
+        setCargandoProductos(true)
+        setErrorProductos('')
+
+        const respuesta = await fetch(
+          `${import.meta.env.BASE_URL}data/productos.json`
+        )
+
+        if (!respuesta.ok) {
+          throw new Error('No fue posible cargar el catálogo.')
+        }
+
+        const datos = await respuesta.json()
+
+        if (!Array.isArray(datos)) {
+          throw new TypeError(
+            'Los datos del catálogo no son válidos.'
+          )
+        }
+
+        setProductos(datos)
+      } catch (error) {
+        setErrorProductos(
+          error instanceof Error
+            ? error.message
+            : 'Ocurrió un error inesperado al cargar el catálogo.'
+        )
+      } finally {
+        setCargandoProductos(false)
+      }
+    }
+
+    cargarProductos()
+  }, [])
+
+  // --------------------------------------------------
+  // Duración del mensaje Toast
+  // --------------------------------------------------
 
   useEffect(() => {
     if (!mensajeToast) {
@@ -76,6 +126,10 @@ function App() {
 
     return () => clearTimeout(temporizador)
   }, [mensajeToast])
+
+  // --------------------------------------------------
+  // Filtrado del catálogo
+  // --------------------------------------------------
 
   const textoBusqueda = busqueda.trim().toLowerCase()
 
@@ -94,72 +148,49 @@ function App() {
     return coincideCategoria && coincideBusqueda
   })
 
+  // --------------------------------------------------
+  // Integración entre carrito y Toast
+  // --------------------------------------------------
+
   const agregarAlCarrito = (producto) => {
-    setCarrito((carritoActual) => {
-      const productoExiste = carritoActual.some(
-        (item) => item.id === producto.id
-      )
+    agregarProducto(producto)
 
-      if (productoExiste) {
-        return carritoActual.map((item) =>
-          item.id === producto.id
-            ? {
-                ...item,
-                cantidad: item.cantidad + 1,
-              }
-            : item
-        )
-      }
-
-      return [
-        ...carritoActual,
-        {
-          ...producto,
-          cantidad: 1,
-        },
-      ]
-    })
-
-    setMensajeToast(`${producto.nombre} agregado al carrito`)
-  }
-
-  const aumentarCantidad = (id) => {
-    setCarrito((carritoActual) =>
-      carritoActual.map((item) =>
-        item.id === id
-          ? {
-              ...item,
-              cantidad: item.cantidad + 1,
-            }
-          : item
-      )
+    setMensajeToast(
+      `${producto.nombre} agregado al carrito`
     )
   }
 
-  const disminuirCantidad = (id) => {
-    setCarrito((carritoActual) =>
-      carritoActual
-        .map((item) =>
-          item.id === id
-            ? {
-                ...item,
-                cantidad: item.cantidad - 1,
-              }
-            : item
-        )
-        .filter((item) => item.cantidad > 0)
+  // --------------------------------------------------
+  // Contenido dinámico del catálogo
+  // --------------------------------------------------
+
+  let contenidoCatalogo
+
+  if (cargandoProductos) {
+    contenidoCatalogo = (
+      <p className="productos-estado">
+        Cargando catálogo...
+      </p>
+    )
+  } else if (errorProductos) {
+    contenidoCatalogo = (
+      <p className="productos-estado productos-error">
+        {errorProductos}
+      </p>
+    )
+  } else {
+    contenidoCatalogo = (
+      <ProductList
+        productos={productosFiltrados}
+        carrito={carrito}
+        onAgregar={agregarAlCarrito}
+      />
     )
   }
 
-  const eliminarDelCarrito = (id) => {
-    setCarrito((carritoActual) =>
-      carritoActual.filter((item) => item.id !== id)
-    )
-  }
-
-  const vaciarCarrito = () => {
-    setCarrito([])
-  }
+  // --------------------------------------------------
+  // Renderizado principal
+  // --------------------------------------------------
 
   return (
     <>
@@ -196,24 +227,23 @@ function App() {
             <h2>Encuentra tu próxima aventura</h2>
           </div>
 
-          <p>
-            {productosFiltrados.length}{' '}
-            {productosFiltrados.length === 1
-              ? 'producto'
-              : 'productos'}
-          </p>
+          {!cargandoProductos && !errorProductos && (
+            <p>
+              {productosFiltrados.length}{' '}
+              {productosFiltrados.length === 1
+                ? 'producto'
+                : 'productos'}
+            </p>
+          )}
         </div>
 
-        <ProductList
-          productos={productosFiltrados}
-          onAgregar={agregarAlCarrito}
-        />
+        {contenidoCatalogo}
 
         <ShoppingCart
           carrito={carrito}
           onAumentar={aumentarCantidad}
           onDisminuir={disminuirCantidad}
-          onEliminar={eliminarDelCarrito}
+          onEliminar={eliminarProducto}
           onVaciar={vaciarCarrito}
         />
       </main>

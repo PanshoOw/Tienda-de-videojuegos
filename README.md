@@ -1,360 +1,786 @@
 # 🎮 El Bazar de PanshoOw
 
-Proyecto eCommerce de videojuegos desarrollado con **React y Vite** para la asignatura **Frontend I - PFY2201**.
+Proyecto de eCommerce de videojuegos desarrollado con **React + Vite** para la asignatura **Desarrollo Frontend I (PFY2201)**.
 
-Esta versión corresponde a la evolución del proyecto desarrollado durante las semanas anteriores, migrando la interfaz y la lógica desde HTML, CSS y JavaScript tradicional hacia una arquitectura basada en **componentes funcionales de React**.
+La aplicación permite explorar un catálogo de videojuegos, buscar y filtrar productos, gestionar un carrito de compras, conservar su contenido mediante `localStorage` y cargar dinámicamente los datos del catálogo mediante `fetch`.
 
----
-
-## 🌐 Sitio publicado
-
-**GitHub Pages**
-
-https://panshoow.github.io/Tienda-de-videojuegos/
-
-**Repositorio**
-
-https://github.com/PanshoOw/Tienda-de-videojuegos
+El proyecto ha sido desarrollado progresivamente durante las actividades de la asignatura, aplicando componentes funcionales, Props, Hooks, renderizado condicional, persistencia de datos y buenas prácticas de organización y reutilización de código.
 
 ---
 
-## ✨ Funcionalidades
+## 🌐 Proyecto publicado
 
-El proyecto incorpora las siguientes funcionalidades:
+### Aplicación
+
+[🔗 Ver El Bazar de PanshoOw en GitHub Pages](https://panshoow.github.io/Tienda-de-videojuegos/)
+
+### Repositorio
+
+[🔗 Ver repositorio en GitHub](https://github.com/PanshoOw/Tienda-de-videojuegos)
+
+---
+
+# 📌 Características principales
+
+La aplicación incorpora actualmente las siguientes funcionalidades:
 
 - Catálogo dinámico de videojuegos.
-- Componentes funcionales reutilizables en React.
-- Filtro de productos por categoría:
-  - Todos.
-  - PC.
-  - Nintendo.
-  - Multiplataforma.
-- Buscador de videojuegos.
-- Combinación entre búsqueda y filtro de categorías.
-- Visualización de información de cada producto:
-  - Nombre.
-  - Plataforma.
-  - Género.
-  - Descripción.
-  - Precio normal.
-  - Precio de oferta.
-  - Portada.
+- Carga de productos mediante `fetch`.
+- Gestión del catálogo mediante `useState`.
+- Uso de `useEffect` para efectos secundarios.
+- Estados de carga y error del catálogo.
+- Búsqueda de videojuegos.
+- Filtrado por categorías.
 - Carrito de compras interactivo.
-- Incremento y disminución de cantidades.
+- Aumento y disminución de cantidades.
 - Eliminación individual de productos.
-- Opción para vaciar completamente el carrito.
-- Cálculo automático de cantidad total de productos.
-- Cálculo automático del precio total.
+- Vaciar completamente el carrito.
+- Cálculo automático de subtotales y total de compra.
+- Contador de productos.
 - Persistencia del carrito mediante `localStorage`.
-- Mensaje Toast al agregar un producto al carrito.
-- Carrusel reutilizable para videojuegos destacados.
-- Cambio automático de imágenes en el carrusel.
-- Controles manuales e indicadores de posición.
-- Diseño responsive para escritorio, tablet y dispositivos móviles.
-- Navegación interna mediante enlaces y desplazamiento suave.
+- Mensajes Toast de confirmación.
+- Renderizado condicional.
+- Cambio dinámico del botón `Agregar al carrito` a `✓ En el carrito`.
+- Carrusel automático de videojuego destacado.
+- Diseño responsivo para escritorio, tablet y dispositivos móviles.
+- Arquitectura basada en componentes reutilizables.
+- Custom Hook para encapsular la lógica del carrito.
+- Utilidades compartidas para evitar duplicación de código.
 
 ---
 
-## ⚛️ React
+# 🧩 Arquitectura de componentes
 
-El proyecto utiliza una arquitectura basada en componentes funcionales, permitiendo separar las distintas partes de la interfaz y reutilizar lógica y estructuras visuales.
+La aplicación se encuentra dividida en componentes funcionales para mantener responsabilidades claras y facilitar su mantenimiento.
 
-La estructura principal dentro de `src` es:
+## Componentes principales
 
-```text
-src/
-├── components/
-│   ├── Footer.jsx
-│   ├── GameCarousel.jsx
-│   ├── Header.jsx
-│   ├── Navbar.jsx
-│   ├── ProductCard.jsx
-│   ├── ProductList.jsx
-│   ├── SearchBar.jsx
-│   ├── ShoppingCart.jsx
-│   └── Toast.jsx
-│
-├── data/
-│   └── productos.json
-│
-├── App.css
-├── App.jsx
-├── index.css
-└── main.jsx
-```
+### `Navbar.jsx`
 
-### Componentes principales
+Barra de navegación principal.
 
-- `Header.jsx`: encabezado principal del sitio.
-- `Navbar.jsx`: navegación y selección de categorías.
-- `SearchBar.jsx`: búsqueda dinámica de videojuegos.
-- `ProductList.jsx`: listado de productos disponibles.
-- `ProductCard.jsx`: representación individual y reutilizable de cada videojuego.
-- `ShoppingCart.jsx`: administración visual del carrito de compras.
-- `GameCarousel.jsx`: carrusel reutilizable para contenido destacado.
-- `Toast.jsx`: mensaje temporal de confirmación al agregar productos.
-- `Footer.jsx`: sección final y navegación de regreso al inicio.
+Permite seleccionar las diferentes categorías disponibles:
+
+- Todos
+- PC
+- Nintendo
+- Multiplataforma
+
+La categoría seleccionada se comunica al componente principal mediante Props.
 
 ---
 
-## 🪝 Hooks utilizados
+### `Header.jsx`
 
-### `useState`
+Encabezado principal de la tienda.
 
-Se utiliza para administrar distintos estados de la aplicación, entre ellos:
+Muestra:
 
-- Categoría seleccionada.
-- Texto ingresado en el buscador.
-- Productos agregados al carrito.
-- Cantidad de cada producto.
-- Mensaje mostrado mediante Toast.
-- Imagen activa del carrusel.
-
-### `useEffect`
-
-Se utiliza para manejar efectos secundarios de la aplicación:
-
-- Guardar el carrito en `localStorage`.
-- Controlar la duración del mensaje Toast.
-- Realizar el cambio automático de imágenes del carrusel.
+- Nombre del proyecto.
+- Descripción principal.
+- Identidad visual del sitio.
 
 ---
 
-## 🎮 Catálogo de productos
+### `GameCarousel.jsx`
 
-Los productos se almacenan en:
+Componente reutilizable encargado de mostrar un videojuego destacado mediante un carrusel automático.
 
-```text
-src/data/productos.json
-```
+Actualmente se utiliza para promocionar **Grand Theft Auto VI**.
 
-Cada videojuego contiene información como:
+Permite:
 
-- Identificador.
+- Cambio automático de imágenes.
+- Navegación manual mediante controles.
+- Indicadores de posición.
+- Configuración mediante Props.
+
+---
+
+### `SearchBar.jsx`
+
+Campo de búsqueda controlado por React.
+
+Permite filtrar los videojuegos utilizando información como:
+
 - Nombre.
 - Plataforma.
 - Género.
+- Categoría.
+
+También incluye una opción para limpiar rápidamente la búsqueda.
+
+---
+
+### `ProductList.jsx`
+
+Recibe la colección de productos filtrados y genera dinámicamente las tarjetas del catálogo.
+
+Cada videojuego es representado mediante el componente:
+
+```text
+ProductCard.jsx
+```
+
+También permite mostrar un mensaje cuando no existen productos coincidentes con los filtros seleccionados.
+
+---
+
+### `ProductCard.jsx`
+
+Representa individualmente cada videojuego del catálogo.
+
+Muestra:
+
+- Imagen.
+- Categoría.
+- Plataforma.
+- Nombre.
 - Descripción.
 - Precio normal.
 - Precio de oferta.
-- Categoría.
-- Imagen.
+- Acción para agregar al carrito.
 
-El catálogo es generado dinámicamente mediante React, por lo que no es necesario crear manualmente una tarjeta diferente para cada producto.
+El botón utiliza **renderizado condicional** para modificar su contenido dependiendo del estado del carrito:
 
-`ProductList.jsx` recorre los datos disponibles y reutiliza `ProductCard.jsx` para representar cada videojuego.
+```text
+Agregar al carrito
+```
+
+cambia a:
+
+```text
+✓ En el carrito
+```
+
+cuando el producto ya se encuentra agregado.
 
 ---
 
-## 🔎 Búsqueda y filtros
+### `ShoppingCart.jsx`
 
-El proyecto permite buscar productos por:
+Administra la presentación general del carrito de compras.
 
-- Nombre.
-- Plataforma.
-- Género.
-- Categoría.
+Muestra:
 
-Además, el buscador funciona en conjunto con el filtro de categorías.
+- Cantidad total de productos.
+- Lista de productos seleccionados.
+- Total acumulado.
+- Botón para vaciar el carrito.
+- Mensaje cuando el carrito está vacío.
 
-Por ejemplo, es posible seleccionar:
+Cada producto agregado es delegado al componente `CartItem`.
+
+---
+
+### `CartItem.jsx`
+
+Representa individualmente un producto agregado al carrito.
+
+Incluye:
+
+- Nombre del producto.
+- Precio unitario.
+- Cantidad seleccionada.
+- Botón para disminuir cantidad.
+- Botón para aumentar cantidad.
+- Subtotal.
+- Acción para eliminar el producto.
+
+Esta separación permite reducir la responsabilidad de `ShoppingCart.jsx` y reutilizar la representación de los productos del carrito.
+
+---
+
+### `Toast.jsx`
+
+Muestra mensajes temporales de confirmación.
+
+Actualmente se utiliza al agregar productos al carrito.
+
+Ejemplo:
 
 ```text
-Multiplataforma
+Minecraft agregado al carrito
 ```
 
-y posteriormente buscar:
+El Toast desaparece automáticamente después de un intervalo controlado mediante `useEffect`.
+
+---
+
+### `Footer.jsx`
+
+Pie de página del sitio.
+
+Incluye información general del proyecto y navegación hacia la parte superior de la aplicación.
+
+---
+
+# 🪝 Custom Hook `useCarrito`
+
+La lógica correspondiente al carrito se encuentra separada del componente principal mediante:
 
 ```text
-RPG
+src/hooks/useCarrito.js
 ```
 
-para mostrar únicamente los productos que cumplan ambas condiciones.
+El Hook administra:
 
-Las categorías disponibles son:
+- Estado del carrito.
+- Recuperación del carrito almacenado.
+- Persistencia mediante `localStorage`.
+- Agregar productos.
+- Aumentar cantidades.
+- Disminuir cantidades.
+- Eliminar productos.
+- Vaciar el carrito.
+
+Ejemplo de utilización:
+
+```jsx
+const {
+    carrito,
+    agregarProducto,
+    aumentarCantidad,
+    disminuirCantidad,
+    eliminarProducto,
+    vaciarCarrito,
+} = useCarrito()
+```
+
+Gracias a esta separación, `App.jsx` puede concentrarse principalmente en coordinar los diferentes componentes y estados generales de la aplicación.
+
+---
+
+# 🔧 Utilidades compartidas
+
+Para evitar duplicación de código se incorporó:
 
 ```text
-Todos
-PC
-Nintendo
-Multiplataforma
+src/utils/formatearPrecio.js
+```
+
+Esta utilidad centraliza el formato de valores monetarios utilizando:
+
+```javascript
+Intl.NumberFormat
+```
+
+con configuración para pesos chilenos:
+
+```text
+CLP
+```
+
+La función es utilizada actualmente por:
+
+- `ProductCard.jsx`
+- `ShoppingCart.jsx`
+- `CartItem.jsx`
+
+Esto permite modificar el formato monetario desde un único lugar.
+
+---
+
+# 📦 Catálogo dinámico
+
+Los productos se encuentran almacenados en:
+
+```text
+public/data/productos.json
+```
+
+A diferencia de una importación directa del archivo JSON, el catálogo se obtiene dinámicamente mediante:
+
+```javascript
+fetch()
+```
+
+La petición se realiza al cargar la aplicación utilizando `useEffect`.
+
+Flujo simplificado:
+
+```text
+Aplicación inicia
+      │
+      ▼
+useEffect
+      │
+      ▼
+fetch(productos.json)
+      │
+      ▼
+respuesta.json()
+      │
+      ▼
+setProductos(datos)
+      │
+      ▼
+React actualiza la interfaz
+```
+
+La URL utiliza:
+
+```javascript
+import.meta.env.BASE_URL
+```
+
+para mantener compatibilidad tanto con el entorno local de Vite como con el despliegue en GitHub Pages.
+
+---
+
+# ⚛️ Hooks utilizados
+
+## `useState`
+
+Se utiliza para administrar diferentes estados dinámicos de la aplicación.
+
+Entre ellos:
+
+### Catálogo
+
+```text
+productos
+```
+
+Contiene los productos cargados dinámicamente.
+
+### Carga del catálogo
+
+```text
+cargandoProductos
+```
+
+Permite conocer si los productos aún están siendo solicitados.
+
+### Error del catálogo
+
+```text
+errorProductos
+```
+
+Permite almacenar y mostrar posibles errores durante la carga.
+
+### Categoría seleccionada
+
+```text
+categoriaActiva
+```
+
+Controla el filtro activo del catálogo.
+
+### Búsqueda
+
+```text
+busqueda
+```
+
+Almacena el texto ingresado por el usuario.
+
+### Toast
+
+```text
+mensajeToast
+```
+
+Controla el mensaje temporal mostrado al usuario.
+
+### Carrito
+
+El estado del carrito se administra dentro del custom Hook:
+
+```text
+useCarrito
 ```
 
 ---
 
-## 🛒 Carrito de compras
+## `useEffect`
 
-El carrito permite agregar productos directamente desde el catálogo.
+Se utiliza para manejar efectos secundarios de la aplicación.
 
-Si el mismo videojuego es agregado nuevamente, el sistema incrementa su cantidad en lugar de generar una entrada duplicada.
+Actualmente permite:
 
-Entre sus funciones se encuentran:
+### Cargar dinámicamente el catálogo
+
+El archivo `productos.json` se solicita mediante `fetch` cuando la aplicación se inicia.
+
+### Persistir el carrito
+
+Cada modificación del carrito actualiza automáticamente su contenido almacenado en `localStorage`.
+
+### Controlar el Toast
+
+El mensaje desaparece automáticamente después de aproximadamente 2,5 segundos.
+
+### Carrusel automático
+
+Permite cambiar periódicamente la imagen mostrada en el carrusel destacado.
+
+---
+
+# 🔄 Renderizado condicional
+
+El proyecto utiliza diferentes estrategias de renderizado condicional para adaptar la interfaz según el estado actual.
+
+## Catálogo cargando
+
+Mientras se obtienen los productos:
+
+```text
+Cargando catálogo...
+```
+
+---
+
+## Error durante la carga
+
+Si ocurre un problema durante la petición:
+
+```text
+No fue posible cargar el catálogo.
+```
+
+---
+
+## Carrito vacío
+
+Cuando no existen productos seleccionados:
+
+```text
+Tu carrito está vacío.
+```
+
+---
+
+## Botón Vaciar carrito
+
+Solo aparece si existe al menos un producto en el carrito.
+
+---
+
+## Estado del producto
+
+Cuando un producto todavía no se encuentra agregado:
+
+```text
+Agregar al carrito
+```
+
+Cuando ya pertenece al carrito:
+
+```text
+✓ En el carrito
+```
+
+---
+
+## Resultados de búsqueda
+
+Si ningún videojuego coincide con los filtros:
+
+```text
+No se encontraron productos con los filtros seleccionados.
+```
+
+---
+
+# 🛒 Carrito de compras
+
+El carrito permite:
 
 - Agregar productos.
+- Agregar varias unidades del mismo producto.
 - Incrementar cantidades.
 - Disminuir cantidades.
-- Eliminar productos individualmente.
-- Vaciar completamente el carrito.
-- Mostrar cantidad total de productos.
-- Calcular subtotal por producto.
-- Calcular precio total de la compra.
+- Eliminar productos.
+- Vaciar todo el carrito.
+- Calcular subtotales.
+- Calcular el total general.
+- Mostrar la cantidad total de productos.
 
-La interfaz se actualiza automáticamente cada vez que cambia el estado del carrito.
+La lógica se encuentra encapsulada en:
+
+```text
+src/hooks/useCarrito.js
+```
+
+mientras que cada elemento individual se representa mediante:
+
+```text
+src/components/CartItem.jsx
+```
 
 ---
 
-## 💾 Persistencia con localStorage
+# 💾 Persistencia con Local Storage
 
-El contenido del carrito se almacena mediante:
+El carrito se conserva mediante:
 
 ```javascript
 localStorage
 ```
 
-Esto permite que los productos agregados permanezcan disponibles incluso después de recargar la página.
-
-El estado inicial del carrito intenta recuperar la información previamente almacenada y, cada vez que el contenido cambia, React actualiza los datos guardados en el navegador.
-
----
-
-## 🔔 Toast de confirmación
-
-Al agregar un videojuego al carrito se muestra temporalmente un mensaje de confirmación.
-
-Ejemplo:
+utilizando la clave:
 
 ```text
-✓ Elden Ring agregado al carrito
+bazarPanshoOw_carrito
 ```
 
-El mensaje desaparece automáticamente después de unos segundos mediante un efecto controlado con `useEffect`.
+Esto permite que los productos seleccionados permanezcan disponibles incluso después de:
+
+- Actualizar la página.
+- Cerrar la pestaña.
+- Volver posteriormente al sitio.
+
+Al iniciar la aplicación, `useCarrito` intenta recuperar automáticamente la información almacenada.
 
 ---
 
-## 🎞️ Carrusel reutilizable
+# 🔎 Búsqueda y categorías
 
-El proyecto incorpora el componente:
+El catálogo puede filtrarse utilizando simultáneamente:
 
-```text
-GameCarousel.jsx
-```
+## Categorías
 
-Este componente fue diseñado para poder utilizarse con cualquier videojuego destacado.
+- Todos
+- PC
+- Nintendo
+- Multiplataforma
 
-Recibe mediante `props` información como:
+## Búsqueda
 
-- Etiqueta.
-- Título.
-- Descripción.
-- Imágenes.
-- Intervalo de cambio automático.
+La búsqueda considera:
 
-Actualmente se utiliza para destacar **Grand Theft Auto VI**, pero su funcionamiento no depende específicamente de ese juego.
+- Nombre.
+- Plataforma.
+- Género.
+- Categoría.
 
-Por ejemplo, el mismo componente podría utilizarse posteriormente para destacar otro videojuego utilizando diferentes propiedades e imágenes.
-
-El carrusel incorpora:
-
-- Cambio automático de imágenes.
-- Botón para avanzar.
-- Botón para retroceder.
-- Indicadores seleccionables.
-- Texto alternativo para las imágenes.
-- Adaptación a dispositivos móviles.
+Los filtros se combinan para mostrar únicamente los productos que cumplen ambas condiciones.
 
 ---
 
-## 🎨 Diseño
+# 🎨 Diseño y experiencia de usuario
 
-La interfaz utiliza una estética oscura, moderna y minimalista inspirada en plataformas digitales relacionadas con videojuegos.
+El proyecto utiliza una identidad visual inspirada en interfaces modernas relacionadas con videojuegos.
 
-Entre sus principales características visuales se encuentran:
+Principales características:
 
-- Paleta oscura con acentos violetas.
-- Tarjetas uniformes para los productos.
-- Bordes y fondos sutiles.
-- Efectos `hover`.
+- Tema oscuro.
+- Acentos púrpura.
+- Tarjetas minimalistas.
+- Jerarquía visual clara.
+- Precios normal y oferta diferenciados.
 - Animaciones suaves.
-- Jerarquía visual mediante tamaños y colores.
-- Portadas adaptadas a las tarjetas.
-- Botones y precios alineados de forma consistente.
-- Estados visuales para categorías seleccionadas.
-- Diseño limpio y orientado al contenido.
+- Estados interactivos.
+- Diseño responsivo.
+- Carrusel promocional.
+- Mensajes de confirmación mediante Toast.
 
 ---
 
-## 📱 Diseño responsive
+# 📱 Diseño responsivo
 
-La interfaz fue adaptada para diferentes tamaños de pantalla utilizando:
+La interfaz se adapta a diferentes tamaños de pantalla.
 
-- CSS Grid.
-- Flexbox.
-- `clamp()`.
-- Unidades relativas.
-- Media queries.
-- Grid dinámico mediante `auto-fill` y `minmax()`.
-
-Se incorporaron ajustes específicos para:
+Se contemplan principalmente:
 
 ### Escritorio
 
-Distribución completa del catálogo y navegación horizontal.
+Distribución del catálogo mediante múltiples columnas.
 
 ### Tablet
 
-Reorganización de Navbar, buscador, carrito y componentes principales.
+Reducción automática del número de columnas y reorganización de controles.
 
-### Móvil
+### Dispositivos móviles
 
-- Una tarjeta de producto por fila.
-- Navegación adaptada.
-- Controles reorganizados.
-- Carrusel con proporciones adecuadas.
-- Toast adaptable al ancho disponible.
-- Carrito optimizado para pantallas estrechas.
+- Una tarjeta por fila.
+- Navegación adaptable.
+- Carrito reorganizado verticalmente.
+- Carrusel adaptado.
+- Toast ajustado al ancho disponible.
 
 ---
 
-## 🖼️ Recursos gráficos
-
-Las imágenes utilizadas por el catálogo y el carrusel se almacenan en:
+# 📁 Estructura del proyecto
 
 ```text
-public/img/
+Tienda-de-videojuegos/
+│
+├── public/
+│   ├── data/
+│   │   └── productos.json
+│   │
+│   └── img/
+│       ├── portadas de videojuegos
+│       └── imágenes promocionales
+│
+├── src/
+│   ├── components/
+│   │   ├── CartItem.jsx
+│   │   ├── Footer.jsx
+│   │   ├── GameCarousel.jsx
+│   │   ├── Header.jsx
+│   │   ├── Navbar.jsx
+│   │   ├── ProductCard.jsx
+│   │   ├── ProductList.jsx
+│   │   ├── SearchBar.jsx
+│   │   ├── ShoppingCart.jsx
+│   │   └── Toast.jsx
+│   │
+│   ├── hooks/
+│   │   └── useCarrito.js
+│   │
+│   ├── utils/
+│   │   └── formatearPrecio.js
+│   │
+│   ├── App.css
+│   ├── App.jsx
+│   ├── index.css
+│   └── main.jsx
+│
+├── docs/
+│   └── evidencias/
+│       ├── semana-7/
+│       └── semana-8/
+│
+├── .gitignore
+├── eslint.config.js
+├── index.html
+├── package-lock.json
+├── package.json
+├── README.md
+└── vite.config.js
 ```
-
-Las rutas de las imágenes utilizan `import.meta.env.BASE_URL` cuando corresponde, permitiendo que los recursos funcionen correctamente tanto en desarrollo local como al publicar el proyecto mediante GitHub Pages.
 
 ---
 
-## 🛠️ Tecnologías utilizadas
+# 🖼️ Evidencias del desarrollo
+
+El proyecto se ha desarrollado de manera incremental durante las diferentes semanas de la asignatura.
+
+A continuación se muestran algunas evidencias representativas directamente desde el repositorio para facilitar su revisión.
+
+---
+
+## Semana 7 — Componentes funcionales en React
+
+Durante la Semana 7 se realizó la migración del proyecto a React utilizando Vite y se implementaron componentes funcionales, Hooks, búsqueda, filtros, carrito y persistencia.
+
+### Vista general de la aplicación
+
+![Vista general de El Bazar de PanshoOw](docs/evidencias/semana-7/01_vista_general.png)
+
+### Catálogo de productos
+
+![Catálogo de videojuegos](docs/evidencias/semana-7/02_catalogo_productos.png)
+
+### Búsqueda y filtros
+
+![Búsqueda y filtros funcionando](docs/evidencias/semana-7/03_filtros_busqueda.png)
+
+### Carrito de compras
+
+![Carrito de compras funcionando](docs/evidencias/semana-7/04_carrito_compras.png)
+
+### Persistencia mediante localStorage
+
+![Persistencia del carrito](docs/evidencias/semana-7/06_localstorage.png)
+
+### Diseño responsivo
+
+![Vista móvil](docs/evidencias/semana-7/07_responsive_movil.png)
+
+---
+
+## Semana 8 — Optimización de funcionalidades en React
+
+Durante la Semana 8 se optimizó la arquitectura del proyecto, se incorporó la carga dinámica del catálogo mediante `fetch`, se mejoró el renderizado condicional y se separaron responsabilidades mediante un custom Hook y nuevos componentes reutilizables.
+
+### Carga dinámica mediante Fetch
+
+![Carga dinámica del catálogo](docs/evidencias/semana-8/01_carga_dinamica.png)
+
+La carga de `productos.json` puede observarse mediante las herramientas de desarrollo del navegador.
+
+---
+
+### Carrito funcionando
+
+![Carrito de compras Semana 8](docs/evidencias/semana-8/02_carrito_funcionando.png)
+
+Se mantienen las operaciones de:
+
+- Aumentar cantidad.
+- Disminuir cantidad.
+- Eliminar productos.
+- Vaciar carrito.
+- Calcular totales.
+
+---
+
+### Renderizado condicional
+
+![Renderizado condicional](docs/evidencias/semana-8/03_renderizado_condicional.png)
+
+La interfaz modifica dinámicamente el botón de cada producto según su presencia en el carrito.
+
+---
+
+### Implementación de `useEffect` y `fetch`
+
+![Código de carga dinámica](docs/evidencias/semana-8/04_codigo_useeffect.png)
+
+El catálogo se carga mediante `useEffect` y `fetch`, actualizando posteriormente el estado de productos.
+
+---
+
+# 🛠️ Tecnologías utilizadas
 
 - HTML5
 - CSS3
 - JavaScript
 - React
+- React Hooks
 - Vite
-- JSX
-- JSON
-- localStorage
 - ESLint
+- Fetch API
+- Local Storage
 - Git
 - GitHub
 - GitHub Pages
 
 ---
 
-## 📦 Instalación
+# 🚀 Instalación local
 
-Para ejecutar el proyecto de forma local es necesario tener instalado Node.js.
+Para ejecutar el proyecto localmente se necesita tener instalado:
 
-Primero se deben instalar las dependencias:
+```text
+Node.js
+npm
+```
+
+Clonar el repositorio:
+
+```bash
+git clone https://github.com/PanshoOw/Tienda-de-videojuegos.git
+```
+
+Ingresar al proyecto:
+
+```bash
+cd Tienda-de-videojuegos
+```
+
+Instalar dependencias:
 
 ```bash
 npm install
 ```
 
-Luego se inicia el servidor de desarrollo:
+Ejecutar el servidor de desarrollo:
 
 ```bash
 npm run dev
@@ -368,114 +794,187 @@ http://localhost:5173/
 
 ---
 
-## 🔧 Comandos disponibles
+# 📜 Scripts disponibles
 
-### Iniciar el servidor de desarrollo
+## Desarrollo
 
 ```bash
 npm run dev
 ```
 
-### Revisar el código con ESLint
+Inicia el servidor local de Vite.
+
+---
+
+## Validación
 
 ```bash
 npm run lint
 ```
 
-### Generar la versión de producción
+Ejecuta ESLint para comprobar la calidad y consistencia del código.
+
+---
+
+## Compilación
 
 ```bash
 npm run build
 ```
 
-La compilación de producción se genera dentro de:
+Genera la versión de producción dentro de:
 
 ```text
 dist/
 ```
 
-Esta carpeta es creada automáticamente por Vite.
+---
+
+## Vista previa de producción
+
+```bash
+npm run preview
+```
+
+Permite probar localmente el resultado generado mediante `npm run build`.
 
 ---
 
-## 🌍 GitHub Pages
+## Despliegue
 
-El proyecto utiliza una configuración específica de Vite para funcionar correctamente desde GitHub Pages.
+```bash
+npm run deploy
+```
 
-En `vite.config.js` se define:
+Genera la aplicación y publica su contenido mediante GitHub Pages.
+
+---
+
+# 🌐 Configuración de GitHub Pages
+
+El proyecto utiliza una configuración específica de Vite:
 
 ```javascript
-base: '/Tienda-de-videojuegos/'
+export default defineConfig({
+    plugins: [react()],
+    base: '/Tienda-de-videojuegos/',
+})
 ```
 
-Esto permite que los archivos y recursos generados por Vite utilicen correctamente la ruta correspondiente al repositorio publicado.
+Esta configuración permite que los recursos de la aplicación funcionen correctamente bajo la ruta utilizada por GitHub Pages.
+
+Las imágenes y el catálogo utilizan también:
+
+```javascript
+import.meta.env.BASE_URL
+```
+
+para mantener rutas compatibles tanto en desarrollo como en producción.
 
 ---
 
-## 📁 Estructura general del proyecto
+# ✅ Validación del proyecto
 
-```text
-Tienda-de-videojuegos/
-├── public/
-│   └── img/
-│
-├── src/
-│   ├── components/
-│   │   ├── Footer.jsx
-│   │   ├── GameCarousel.jsx
-│   │   ├── Header.jsx
-│   │   ├── Navbar.jsx
-│   │   ├── ProductCard.jsx
-│   │   ├── ProductList.jsx
-│   │   ├── SearchBar.jsx
-│   │   ├── ShoppingCart.jsx
-│   │   └── Toast.jsx
-│   │
-│   ├── data/
-│   │   └── productos.json
-│   │
-│   ├── App.css
-│   ├── App.jsx
-│   ├── index.css
-│   └── main.jsx
-│
-├── .gitignore
-├── eslint.config.js
-├── index.html
-├── package-lock.json
-├── package.json
-├── vite.config.js
-└── README.md
-```
-
----
-
-## ✅ Validaciones realizadas
-
-Durante el desarrollo se realizaron comprobaciones mediante:
+Antes de cada publicación se realizan las siguientes comprobaciones:
 
 ```bash
 npm run lint
-```
-
-para verificar la calidad y consistencia del código.
-
-También se comprobó la compilación para producción mediante:
-
-```bash
 npm run build
 ```
 
-El proyecto compila correctamente con Vite.
+Estas verificaciones permiten detectar posibles errores antes de publicar una nueva versión.
+
+También se comprueba manualmente:
+
+- Carga del catálogo.
+- Búsqueda.
+- Filtros.
+- Carrito.
+- Persistencia.
+- Renderizado condicional.
+- Carrusel.
+- Diseño responsivo.
+- Navegación.
+- GitHub Pages.
 
 ---
 
-## 👨‍💻 Autor
+# 📚 Conceptos aplicados
+
+Durante el desarrollo se han aplicado conceptos como:
+
+- Componentes funcionales.
+- JSX.
+- Props.
+- Estado.
+- `useState`.
+- `useEffect`.
+- Custom Hooks.
+- Renderizado condicional.
+- Comunicación padre-hijo.
+- Eventos.
+- Métodos de arreglos:
+  - `map`
+  - `filter`
+  - `reduce`
+  - `some`
+- Fetch API.
+- JSON.
+- Async/Await.
+- Manejo básico de errores.
+- Local Storage.
+- Diseño responsivo.
+- Reutilización de código.
+- Separación de responsabilidades.
+
+---
+
+# 🎯 Evolución arquitectónica
+
+La aplicación comenzó con una estructura sencilla y ha evolucionado progresivamente hacia una organización más modular.
+
+Algunas mejoras realizadas incluyen:
+
+```text
+Importación directa de JSON
+        ↓
+Carga dinámica mediante fetch
+```
+
+```text
+Lógica completa del carrito dentro de App.jsx
+        ↓
+Custom Hook useCarrito
+```
+
+```text
+Productos del carrito dentro de ShoppingCart
+        ↓
+Componente reutilizable CartItem
+```
+
+```text
+Funciones duplicadas para precios
+        ↓
+Utilidad compartida formatearPrecio
+```
+
+Este proceso permite mantener componentes más pequeños, responsabilidades más claras y código más fácil de mantener.
+
+---
+
+# 👨‍💻 Autor
 
 **Francisco Villarzú Miraglia**
 
-Proyecto desarrollado para la asignatura:
+Proyecto desarrollado para:
 
-**Frontend I - PFY2201**
+**Desarrollo Frontend I — PFY2201**
 
-Duoc UC.
+Duoc UC
+
+---
+
+# 🎮 El Bazar de PanshoOw
+
+> Tu espacio para descubrir videojuegos, ofertas y nuevas aventuras.
