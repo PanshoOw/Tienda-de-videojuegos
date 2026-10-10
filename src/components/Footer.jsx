@@ -1,15 +1,10 @@
 function Footer() {
     return (
-        <footer
-        id="contacto"
-        className="footer"
-        >
+        <footer className="footer">
+            
         <div className="footer-contenido">
             <div className="footer-principal">
             <div>
-                <span className="seccion-etiqueta">
-                CONTACTO
-                </span>
 
                 <h2>¿Buscas tu próxima aventura?</h2>
 

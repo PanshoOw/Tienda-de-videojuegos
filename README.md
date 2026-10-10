@@ -1,10 +1,10 @@
 # 🎮 El Bazar de PanshoOw
 
-Proyecto de eCommerce de videojuegos desarrollado con **React + Vite** para la asignatura **Desarrollo Frontend I (PFY2201)**.
+Proyecto de eCommerce de videojuegos desarrollado con **React, Vite y Bootstrap 5** para la asignatura **Desarrollo Frontend I (PFY2201)**.
 
-La aplicación permite explorar un catálogo de videojuegos, buscar y filtrar productos, gestionar un carrito de compras, conservar su contenido mediante `localStorage` y cargar dinámicamente los datos del catálogo mediante `fetch`.
+La aplicación permite explorar un catálogo de videojuegos, buscar y filtrar productos, gestionar un carrito de compras, conservar su contenido mediante `localStorage`, cargar dinámicamente los datos del catálogo mediante `fetch` y utilizar un formulario de contacto con validación.
 
-El proyecto ha sido desarrollado progresivamente durante las actividades de la asignatura, aplicando componentes funcionales, Props, Hooks, renderizado condicional, persistencia de datos y buenas prácticas de organización y reutilización de código.
+El proyecto ha sido desarrollado progresivamente durante las actividades de la asignatura, aplicando componentes funcionales, Props, Hooks, renderizado condicional, persistencia de datos, Bootstrap 5 y buenas prácticas de organización y reutilización de código.
 
 ---
 
@@ -42,6 +42,12 @@ La aplicación incorpora actualmente las siguientes funcionalidades:
 - Renderizado condicional.
 - Cambio dinámico del botón `Agregar al carrito` a `✓ En el carrito`.
 - Carrusel automático de videojuego destacado.
+- Formulario de contacto.
+- Validación de nombre, correo electrónico y mensaje.
+- Validación del formato del correo electrónico.
+- Mensajes de error y confirmación en el formulario.
+- Uso de Bootstrap 5.
+- Maquetación responsiva mediante Bootstrap Grid.
 - Diseño responsivo para escritorio, tablet y dispositivos móviles.
 - Arquitectura basada en componentes reutilizables.
 - Custom Hook para encapsular la lógica del carrito.
@@ -65,6 +71,8 @@ Permite seleccionar las diferentes categorías disponibles:
 - PC
 - Nintendo
 - Multiplataforma
+
+También incorpora un enlace hacia la sección de contacto.
 
 La categoría seleccionada se comunica al componente principal mediante Props.
 
@@ -188,6 +196,37 @@ Incluye:
 - Acción para eliminar el producto.
 
 Esta separación permite reducir la responsabilidad de `ShoppingCart.jsx` y reutilizar la representación de los productos del carrito.
+
+---
+
+### `ContactForm.jsx`
+
+Formulario de contacto desarrollado mediante React y Bootstrap 5.
+
+Incluye los campos:
+
+- Nombre.
+- Correo electrónico.
+- Mensaje.
+
+El componente utiliza estado para administrar la información ingresada y validar los datos antes de aceptar el formulario.
+
+La validación comprueba:
+
+- Nombre obligatorio.
+- Correo electrónico obligatorio.
+- Formato válido del correo electrónico.
+- Mensaje obligatorio.
+
+Cuando existe un problema se muestran mensajes específicos mediante las clases de validación de Bootstrap.
+
+Cuando todos los datos son válidos:
+
+- Se muestra un mensaje de confirmación.
+- Los campos son limpiados.
+- La interfaz se actualiza mediante renderizado condicional.
+
+El formulario utiliza **Bootstrap Grid** para adaptar su distribución según el tamaño de pantalla.
 
 ---
 
@@ -392,6 +431,18 @@ El estado del carrito se administra dentro del custom Hook:
 useCarrito
 ```
 
+### Formulario de contacto
+
+`ContactForm.jsx` utiliza estado para manejar:
+
+```text
+formulario
+errores
+enviado
+```
+
+Esto permite controlar los campos, validar la información ingresada y mostrar mensajes dinámicamente.
+
 ---
 
 ## `useEffect`
@@ -484,6 +535,18 @@ No se encontraron productos con los filtros seleccionados.
 
 ---
 
+## Formulario de contacto
+
+Los errores de validación aparecen solamente cuando existe información faltante o incorrecta.
+
+Después de completar correctamente el formulario se muestra:
+
+```text
+Formulario validado correctamente. ¡Gracias por contactarnos!
+```
+
+---
+
 # 🛒 Carrito de compras
 
 El carrito permite:
@@ -560,6 +623,41 @@ Los filtros se combinan para mostrar únicamente los productos que cumplen ambas
 
 ---
 
+# 🅱️ Bootstrap 5
+
+Bootstrap 5 se encuentra integrado al proyecto para complementar el diseño responsivo y la construcción del formulario de contacto.
+
+Se utiliza especialmente **Bootstrap Grid** mediante clases como:
+
+```text
+container
+row
+col-12
+col-md-6
+col-lg-9
+col-xl-8
+g-4
+justify-content-center
+```
+
+El formulario utiliza además componentes y utilidades como:
+
+```text
+form-label
+form-control
+is-invalid
+invalid-feedback
+btn
+alert
+mt-4
+```
+
+Esto permite utilizar las herramientas responsivas de Bootstrap sin reemplazar la identidad visual propia del proyecto.
+
+Los estilos personalizados definidos en `App.css` complementan Bootstrap para conservar el tema oscuro, los acentos púrpura y la estética general de **El Bazar de PanshoOw**.
+
+---
+
 # 🎨 Diseño y experiencia de usuario
 
 El proyecto utiliza una identidad visual inspirada en interfaces modernas relacionadas con videojuegos.
@@ -574,24 +672,29 @@ Principales características:
 - Animaciones suaves.
 - Estados interactivos.
 - Diseño responsivo.
+- Bootstrap Grid.
 - Carrusel promocional.
 - Mensajes de confirmación mediante Toast.
+- Formulario de contacto integrado visualmente con el sitio.
 
 ---
 
 # 📱 Diseño responsivo
 
-La interfaz se adapta a diferentes tamaños de pantalla.
+La interfaz se adapta a diferentes tamaños de pantalla mediante CSS personalizado y Bootstrap Grid.
 
 Se contemplan principalmente:
 
 ### Escritorio
 
-Distribución del catálogo mediante múltiples columnas.
+- Distribución del catálogo mediante múltiples columnas.
+- Formulario de contacto con nombre y correo distribuidos horizontalmente.
 
 ### Tablet
 
-Reducción automática del número de columnas y reorganización de controles.
+- Reducción automática del número de columnas.
+- Reorganización de controles.
+- Adaptación del carrito y navegación.
 
 ### Dispositivos móviles
 
@@ -600,6 +703,8 @@ Reducción automática del número de columnas y reorganización de controles.
 - Carrito reorganizado verticalmente.
 - Carrusel adaptado.
 - Toast ajustado al ancho disponible.
+- Campos del formulario reorganizados en una única columna.
+- Botón de envío adaptable al ancho disponible.
 
 ---
 
@@ -619,6 +724,7 @@ Tienda-de-videojuegos/
 ├── src/
 │   ├── components/
 │   │   ├── CartItem.jsx
+│   │   ├── ContactForm.jsx
 │   │   ├── Footer.jsx
 │   │   ├── GameCarousel.jsx
 │   │   ├── Header.jsx
@@ -743,6 +849,8 @@ El catálogo se carga mediante `useEffect` y `fetch`, actualizando posteriorment
 - JavaScript
 - React
 - React Hooks
+- Bootstrap 5
+- Bootstrap Grid
 - Vite
 - ESLint
 - Fetch API
@@ -789,7 +897,7 @@ npm run dev
 Vite mostrará una dirección local similar a:
 
 ```text
-http://localhost:5173/
+http://localhost:5173/Tienda-de-videojuegos/
 ```
 
 ---
@@ -893,7 +1001,14 @@ También se comprueba manualmente:
 - Persistencia.
 - Renderizado condicional.
 - Carrusel.
+- Formulario de contacto.
+- Validación de campos obligatorios.
+- Validación del correo electrónico.
+- Enlace de navegación hacia contacto.
 - Diseño responsivo.
+- Bootstrap Grid.
+- Funcionamiento en diferentes tamaños de pantalla.
+- Funcionamiento en distintos navegadores.
 - Navegación.
 - GitHub Pages.
 
@@ -903,6 +1018,12 @@ También se comprueba manualmente:
 
 Durante el desarrollo se han aplicado conceptos como:
 
+- HTML semántico.
+- CSS.
+- Flexbox.
+- CSS Grid.
+- Bootstrap 5.
+- Bootstrap Grid.
 - Componentes funcionales.
 - JSX.
 - Props.
@@ -911,6 +1032,8 @@ Durante el desarrollo se han aplicado conceptos como:
 - `useEffect`.
 - Custom Hooks.
 - Renderizado condicional.
+- Formularios controlados.
+- Validación de formularios.
 - Comunicación padre-hijo.
 - Eventos.
 - Métodos de arreglos:
@@ -926,6 +1049,8 @@ Durante el desarrollo se han aplicado conceptos como:
 - Diseño responsivo.
 - Reutilización de código.
 - Separación de responsabilidades.
+
+La actualización dinámica de la interfaz es gestionada por React mediante estado, Props y renderizado de componentes, evitando la manipulación manual directa del DOM.
 
 ---
 
@@ -957,6 +1082,18 @@ Componente reutilizable CartItem
 Funciones duplicadas para precios
         ↓
 Utilidad compartida formatearPrecio
+```
+
+```text
+Navegación hacia una sección genérica
+        ↓
+Formulario de contacto funcional con validación
+```
+
+```text
+Diseño responsivo personalizado
+        ↓
+Integración complementaria de Bootstrap 5 y Bootstrap Grid
 ```
 
 Este proceso permite mantener componentes más pequeños, responsabilidades más claras y código más fácil de mantener.

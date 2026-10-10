@@ -8,6 +8,7 @@ import Toast from './components/Toast'
 import Footer from './components/Footer'
 import GameCarousel from './components/GameCarousel'
 import useCarrito from './hooks/useCarrito'
+import ContactForm from './components/ContactForm'
 import './App.css'
 
 // Imágenes utilizadas por el carrusel de videojuego destacado.
@@ -247,6 +248,8 @@ function App() {
           onVaciar={vaciarCarrito}
         />
       </main>
+
+      <ContactForm />
 
       <Footer />
 

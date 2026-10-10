@@ -650,9 +650,74 @@
     font-weight: 700;
 }
 
+/* --------------------------------------------------
+    Formulario de contacto
+-------------------------------------------------- */
+
+.contacto {
+    margin-top: 90px;
+    padding: 70px 24px;
+    background-color: #171a21;
+    border-top: 1px solid #292d36;
+    border-bottom: 1px solid #292d36;
+}
+
+.contacto-encabezado {
+    margin-bottom: 32px;
+    text-align: center;
+}
+
+.contacto-encabezado h2 {
+    margin: 8px 0 12px;
+    color: #ffffff;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+.contacto-encabezado p {
+    margin: 0;
+    color: #aeb3bf;
+}
+
+.contacto-formulario .form-label {
+    color: #d9dce3;
+    font-weight: 600;
+}
+
+.contacto-formulario .form-control {
+    padding: 12px 14px;
+    color: #f5f5f5;
+    background-color: #111318;
+    border: 1px solid #353a45;
+}
+
+.contacto-formulario .form-control:focus {
+    color: #ffffff;
+    background-color: #111318;
+    border-color: #8b7cff;
+    box-shadow: 0 0 0 0.2rem rgba(139, 124, 255, 0.15);
+}
+
+.contacto-formulario .form-control::placeholder {
+    color: #747a87;
+}
+
+.contacto-boton {
+    width: 100%;
+    padding: 12px 20px;
+    color: #ffffff;
+    font-weight: 700;
+    background-color: #8b7cff;
+    border: none;
+}
+
+.contacto-boton:hover {
+    color: #ffffff;
+    background-color: #7969f2;
+}
+
 /* Footer */
 .footer {
-    margin-top: 80px;
+    margin-top: 0;
     background-color: #0d0f13;
     border-top: 1px solid #292d36;
 }
