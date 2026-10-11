@@ -109,7 +109,7 @@ function App() {
       }
     }
 
-    cargarProductos()
+    void cargarProductos()
   }, [])
 
   // --------------------------------------------------
